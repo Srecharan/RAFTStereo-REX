@@ -1,0 +1,21 @@
+name: raftstereo
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.7
+  - cudatoolkit=10.2
+  - pytorch=1.7.0
+  - torchvision=0.8.1
+  - numpy=1.21.5
+  - pip
+  - pip:
+    - opencv-python==4.10.0.84
+    - open3d==0.17.0
+    - matplotlib==3.5.3
+    - tqdm==4.67.1
+    - scikit-image==0.19.3
+    - tensorboard==2.11.2
+    - timm==0.9.12
+    - pillow==9.4.0
+    - scipy==1.7.3
