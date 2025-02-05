@@ -40,6 +40,26 @@ An advanced deep learning-based stereo matching system for high-precision depth 
   <p align="center"><i>Dense 3D Point Cloud Reconstruction</i></p>
 </div>
 
+## Note on System Integration
+This system represents the depth perception pipeline for the REX platform, integrating three key components:
+
+1. **RAFT-Stereo Node (This Repository)**
+   - High-precision depth estimation
+   - Dense 3D reconstruction
+   - Sub-pixel disparity accuracy
+
+2. **LeafGrasp-Vision-ML** ([LeafGrasp-Vision-ML](https://github.com/Srecharan/Leaf-Grasping-Vision-ML.git))
+   - Depth-aware grasp point selection
+   - 3D point cloud processing
+   - Geometric feature extraction
+
+3. **REX Robot Integration** ([REX-Robot](https://github.com/Srecharan/REX-Robot.git))
+   - Stereo camera system
+   - Calibrated image streams
+   - Real-time data acquisition
+
+Each component has its dedicated repository for detailed implementation. This repository focuses on high-precision depth estimation and 3D reconstruction for robotic manipulation.
+
 ## Technical Implementation
 
 ### 1. Deep Learning Architecture
