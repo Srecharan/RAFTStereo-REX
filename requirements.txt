@@ -10,3 +10,9 @@ timm==0.9.12
 pillow==9.4.0
 scipy==1.7.3
 numpy==1.21.5
+
+# Optimization dependencies
+pycuda>=2021.1  # For custom CUDA kernel development
+torch-tensorrt>=1.1.0  # For TensorRT optimization
+tensorrt>=8.0.0  # TensorRT runtime
+nvidia-tensorrt  # NVIDIA TensorRT package

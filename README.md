@@ -118,6 +118,38 @@ python train_stereo.py \
   - Boundary refinement
   - Statistical outlier filtering
 
+## Performance Optimizations
+
+### CUDA Kernel Acceleration
+Custom CUDA kernels for 3D point cloud generation provide significant speedup over CPU implementation:
+
+- **Implementation**: `src/raft_stereo_leaf/cuda_kernels.py`
+- **Features**: Parallel processing of 1.5M pixels, memory coalescing optimization
+- **Usage**:
+```python
+pcl, rgb = generate_pointcloud_optimized(
+    depth_map=depth, rgb_image=image,
+    fx=focal_x, fy=focal_y, cx=center_x, cy=center_y
+)
+```
+
+### TensorRT Model Optimization
+TensorRT compilation optimizes model inference performance:
+
+- **Implementation**: `src/raft_stereo_leaf/tensorrt_optimization.py`
+- **Features**: FP16 precision, operator fusion, graph optimization
+- **Usage**:
+```python
+optimized_model = optimize_raft_stereo_pipeline(
+    model=raft_stereo_model, enable_tensorrt=True
+)
+```
+
+### Optimization Features
+- **Automatic Fallback**: CPU/PyTorch fallback when optimizations unavailable
+- **Memory Management**: Efficient GPU memory usage and cleanup
+- **Production Ready**: Robust error handling and caching
+
 ## Performance Metrics
 
 1. **Accuracy**:
@@ -127,8 +159,8 @@ python train_stereo.py \
 
 2. **Processing Speed** (with NVIDIA RTX 3080):
    - 1080p stereo pair: ~100ms
-   - Point cloud generation: ~50ms
-   - Total pipeline latency: ~150ms
+   - Point cloud generation: optimized with CUDA kernels
+   - Total pipeline latency: <200ms (real-time capable)
 
 ## Prerequisites
 
@@ -136,6 +168,10 @@ python train_stereo.py \
 - PyTorch 1.7+
 - CUDA 10.2+ and cuDNN
 - Python 3.7+
+- **For Optimizations**:
+  - PyCUDA 2021.1+
+  - TensorRT 8.0+
+  - torch-tensorrt 1.1.0+
 
 ## Quick Start
 
@@ -145,11 +181,19 @@ git clone https://github.com/Srecharan/RAFTStereo-TREX.git
 cd RAFTStereo-TREX
 conda env create -f environment.yaml
 conda activate raftstereo
+
+# Install optimization dependencies (optional)
+pip install pycuda torch-tensorrt tensorrt
 ```
 
 2. **Process Example Data**:
 ```bash
 python scripts/process_static_stereo.py
+```
+
+3. **Test Optimizations** (optional):
+```bash
+python scripts/test_optimizations.py
 ```
 
 ## Output Formats
